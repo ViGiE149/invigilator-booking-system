@@ -1,0 +1,120 @@
+**Technical Specification Document**
+
+**1. Overview**
+
+The Exam Invigilator Booking System is a web application developed to facilitate the scheduling and management of exam invigilators by lecturers. This document outlines the technical specifications required to develop and deploy the system effectively.
+
+**2. Architecture**
+
+- **Frontend**: 
+  - Developed using HTML, CSS, and JavaScript (with frameworks such as React.js or Angular.js for efficient development).
+  - Responsiveness ensured for various screen sizes and devices.
+
+- **Backend**:
+  - Hosted on Firebase Functions (serverless architecture) for scalability and ease of deployment.
+  - Utilizes Firebase Firestore for database operations, ensuring real-time data synchronization and scalability.
+
+- **Email Service**:
+  - Integrates with Firebase Cloud Functions for sending email notifications.
+  - Utilizes Firebase Authentication for secure access to email sending capabilities.
+
+- **Hosting**:
+  - Hosted on Firebase Hosting for easy deployment and scaling.
+  - Utilizes HTTPS for secure communication between client and server.
+
+**3. Development Tools**
+
+- **Code Editor**: 
+  - Developers can use any preferred code editor (e.g., Visual Studio Code, Sublime Text) for writing code.
+
+- **Version Control**:
+  - Git for version control, hosted on platforms like GitHub or Bitbucket for collaborative development and code management.
+
+**4. Dependencies**
+
+- **Frontend**:
+  - React.js or Angular.js framework for frontend development.
+  - Firebase JavaScript SDK for client-side Firestore operations and authentication.
+
+- **Backend**:
+  - Firebase Admin SDK for server-side Firestore operations.
+  - Firebase Functions for serverless backend logic.
+
+**5. Data Model**
+
+- **Exams Collection**:
+  - Fields: 
+    - date (string)
+    - startTime (string)
+    - endTime (string)
+    - lectureName (string)
+    - subjectCode (string)
+    - lecturerEmail (string)
+    - invigilatorsNeeded (number)
+    - venue (string)
+    - secretCode (string)
+
+- **Invigilator Information Collection**:
+  - Fields:
+    - email (string)
+    - name (string)
+    - phoneNumber (string)
+
+- **Track Booked Invigilators Collection**:
+  - Fields:
+    - email (string)
+    - name (string)
+    - phoneNumber (string)
+    - bookedOnTheseDates (array of strings)
+
+**6. Security**
+
+- **Firebase Authentication**:
+  - Authenticate users to ensure only authorized users (lecturers) can access the system.
+  - Implement user roles and permissions to restrict access to sensitive functionalities.
+
+- **Data Validation**:
+  - Validate user inputs to prevent injection attacks and ensure data integrity.
+  - Implement Firestore security rules to control access to data at the database level.
+
+**7. Deployment**
+
+- **Firebase Hosting**:
+  - Deploy frontend code (HTML, CSS, JavaScript) on Firebase Hosting for client access.
+  - Deploy backend functions (Firebase Functions) to handle server-side logic and database operations.
+
+**8. Monitoring and Logging**
+
+- **Firebase Console**:
+  - Utilize Firebase Console for monitoring system health, usage metrics, and error logs.
+  - Implement logging within Firebase Functions for tracking system activities and debugging purposes.
+
+**9. Performance Optimization**
+
+- **Code Optimization**:
+  - Minimize code size and optimize code performance for faster loading times.
+  - Implement code splitting and lazy loading for efficient resource utilization.
+
+- **Firestore Indexing**:
+  - Optimize Firestore queries by creating appropriate indexes for efficient data retrieval.
+
+**10. Testing**
+
+- **Unit Testing**:
+  - Write unit tests for frontend and backend code using testing frameworks like Jest (for JavaScript) or Jasmine (for Angular.js).
+
+- **Integration Testing**:
+  - Conduct integration tests to ensure seamless interaction between frontend, backend, and database components.
+
+**11. Maintenance and Support**
+
+- **Documentation**:
+  - Maintain comprehensive documentation for codebase, APIs, and deployment procedures.
+  - Provide user guides and troubleshooting documentation for end-users (lecturers).
+
+- **Support Channels**:
+  - Establish support channels (e.g., email, forums) for users to report issues and receive assistance.
+  - Regularly update and maintain the system to address bugs, security vulnerabilities, and feature enhancements.
+
+**12. Conclusion**
+

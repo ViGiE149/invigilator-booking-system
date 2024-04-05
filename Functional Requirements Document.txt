@@ -1,0 +1,73 @@
+**Functional Requirements Document**
+
+**1. Introduction**
+
+The Exam Invigilator Booking System is a web application designed to facilitate lecturers in scheduling and managing exam invigilators for their exams. This document outlines the functional requirements of the system, detailing what the system should do to meet the needs of its users effectively.
+
+**2. User Roles**
+
+- **Lecturer**: The primary user who initiates the process of scheduling exams and booking invigilators.
+- **Invigilator**: The personnel responsible for supervising exams.
+
+**3. Functional Requirements**
+
+**3.1 Exam Scheduling**
+
+1. **Add Exam Details**: 
+   - Lecturers can input exam details including date, start time, end time, lecture name, subject code, lecturer's email, number of invigilators needed, venue, and a secret code for deletion.
+
+**3.2 Invigilator Booking**
+
+1. **Automatic Invigilator Allocation**:
+   - Upon adding exam details, the system automatically assigns available invigilators based on their availability stored in the database.
+   - The system should ensure that invigilators are not double-booked for overlapping exams.
+
+2. **Notification to Invigilators**:
+   - Upon successful booking, the system sends an email notification to the assigned invigilators, including exam details.
+
+**3.3 Exam Management**
+
+1. **Delete Exam Record**:
+   - Lecturers can delete exam records by providing the correct subject code and secret code. This action removes the exam details from the system.
+
+**3.4 Database Management**
+
+1. **Exams Collection**:
+   - Stores exam details including date, start time, end time, lecture name, subject code, lecturer's email, number of invigilators needed, venue, and secret code for deletion.
+
+2. **Invigilator Information Collection**:
+   - Stores information about available invigilators, including their email, name, and phone number.
+
+3. **Track Booked Invigilators Collection**:
+   - Tracks booked invigilators along with the dates they are booked for to prevent double bookings. Each document is identified by the invigilator's email.
+
+**4. System Interactions**
+
+1. **User Interface**:
+   - The system provides a user-friendly interface for lecturers to input exam details and manage exam records.
+   - Basic form validation should be implemented to ensure accurate data entry.
+
+2. **Email Sending**:
+   - The system integrates with an email service to send notifications to invigilators upon successful booking.
+
+3. **Database Operations**:
+   - The system interacts with Firestore to store and retrieve exam details, invigilator information, and booked invigilator records.
+
+**5. Non-Functional Requirements**
+
+1. **Security**:
+   - All communications between the client and the server should be encrypted.
+   - User inputs, especially email addresses and secret codes, should be validated to prevent unauthorized access.
+
+2. **Reliability**:
+   - The system should be available 24/7, ensuring reliability for scheduling exams at any time.
+
+3. **Scalability**:
+   - The system should be designed to handle a growing number of users and exam bookings without significant performance degradation.
+
+4. **Usability**:
+   - The user interface should be intuitive and easy to navigate, requiring minimal training for lecturers to use the system effectively.
+
+**6. Conclusion**
+
+This document outlines the functional requirements of the Exam Invigilator Booking System, detailing the features and interactions necessary to create a robust and user-friendly platform for scheduling exams and managing invigilators. By adhering to these requirements, the system will effectively meet the needs of its users, providing a streamlined process for exam management.

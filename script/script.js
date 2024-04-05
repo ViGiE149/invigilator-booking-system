@@ -496,7 +496,7 @@ async function displayExams() {
       const exam = doc.data();
       const examDiv = document.createElement("div");
       examDiv.classList.add("exam-card");
-      examDiv.innerHTML = `<p><strong>Date:</strong> ${exam.date}, <strong>Time:</strong> ${exam.time}, <strong>Lecture Name:</strong> ${exam.lectureName}, <strong>Subject Code:</strong> ${exam.subjectCode}, <strong>Lecturer Email:</strong> ${exam.lecturerEmail}, <strong>Invigilators Needed:</strong> ${exam.invigilatorsNeeded}, <strong>Venue:</strong> ${exam.venue}</p>`;
+      examDiv.innerHTML = `<p><strong>Date:</strong> ${exam.date},<br> <strong>Time:</strong> ${exam.time} <br> <strong>Lecture Name:</strong> ${exam.lectureName}, <br> <strong>Subject Code:</strong> ${exam.subjectCode}, <br> <strong>Lecturer Email:</strong> ${exam.lecturerEmail}, <strong>Invigilators Needed:</strong> ${exam.invigilatorsNeeded}, <strong>Venue:</strong> ${exam.venue}</p>`;
       if (exam.invigilators) {
         examDiv.innerHTML += `<p><strong>Booked Invigilators:</strong> ${exam.invigilators.map((invigilator) => invigilator.name).join(", ")}</p>`;
       } else {
