@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Invigilator</title>
+  <link rel="stylesheet" href="/css/add_invigilator.css">
+  <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Add Invigilator</h1>
+    <form id="invigilatorForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      <label for="phoneNumber">Phone Number:</label>
+      <input type="tel" id="phoneNumber" name="phoneNumber" required>
+      <input type="submit" value="Add Invigilator">
+    </form>
+  </div>
+
+  <script  src="/script/firebase.js"></script>
+  <script src="/script/Addinvigilatores.js"></script>
+</body>
+</html>
