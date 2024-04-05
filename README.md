@@ -15,27 +15,25 @@ The Exam Invigilator Booking System is a web application designed to streamline 
 
 ## Technologies Used
 
-- **Frontend**: HTML, CSS, JavaScript (React.js/Angular.js)
-- **Backend**: Firebase Functions, Firebase Firestore
-- **Email Service**: Firebase Cloud Functions
+- **Frontend**: HTML, CSS, JavaScript 
+- **Backend**: Firebase , Firebase Firestore
+- **Email Service**: MailJS
 - **Hosting**: Firebase Hosting
 
 ## Installation
 
 1. Clone the repository:
    ```
-   git clone https://github.com/your_username/exam-invigilator-booking-system.git
+   [git clone https://github.com/your_username/exam-invigilator-booking-system.git](https://github.com/ViGiE149/invigilator-booking-system)
    ```
 
 2. Install dependencies:
    ```
    cd exam-invigilator-booking-system
-   npm install
    ```
 
 3. Set up Firebase:
    - Create a Firebase project and set up Firestore database.
-   - Configure Firebase Functions for email sending and database operations.
    - Replace Firebase configuration details in the code.
 
 4. Deploy the application:
@@ -66,7 +64,7 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 
 ## Contact
 
-For any inquiries or support, please contact [your_email@example.com](mailto:your_email@example.com).
+For any inquiries or support, please contact [vgwala149@gmail.com](mailto:vgwala149@gmail.com).
 
 ---
 
