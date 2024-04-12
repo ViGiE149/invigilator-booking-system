@@ -8,42 +8,42 @@ let invigilators = [];
 
 
 //invigilators that can be booked
-const invigilatorsInformation = [
-  {
-    name: "John Doe",
-    email: "john.doe@example.com",
-    phoneNumber: "123-456-7890",
-  },
-  {
-    name: "Jane Smith",
-    email: "jane.smith@example.com",
-    phoneNumber: "987-654-3210",
-  },
-  {
-    name: "Michael Johnson",
-    email: "michael.johnson@example.com",
-    phoneNumber: "456-789-0123",
-  },
-  {
-    name: "Emily Brown",
-    email: "emily.brown@example.com",
-    phoneNumber: "789-012-3456",
-  },
-  {
-    name: "David Wilson",
-    email: "david.wilson@example.com",
-    phoneNumber: "321-654-9870",
-  },
-  {
-    name: "Sarah Garcia",
-    email: "sarah.garcia@example.com",
-    phoneNumber: "654-321-0987",
-  },
-  {
-    name: "Daniel Martinez",
-    email: "daniel.martinez@example.com",
-    phoneNumber: "012-345-6789",
-  },
+letinvigilatorsInformation = [
+   //{
+  //   name: "John Doe",
+  //   email: "john.doe@example.com",
+  //   phoneNumber: "123-456-7890",
+  // },
+  // {
+  //   name: "Jane Smith",
+  //   email: "jane.smith@example.com",
+  //   phoneNumber: "987-654-3210",
+  // },
+  // {
+  //   name: "Michael Johnson",
+  //   email: "michael.johnson@example.com",
+  //   phoneNumber: "456-789-0123",
+  // },
+  // {
+  //   name: "Emily Brown",
+  //   email: "emily.brown@example.com",
+  //   phoneNumber: "789-012-3456",
+  // },
+  // {
+  //   name: "David Wilson",
+  //   email: "david.wilson@example.com",
+  //   phoneNumber: "321-654-9870",
+  // },
+  // {
+  //   name: "Sarah Garcia",
+  //   email: "sarah.garcia@example.com",
+  //   phoneNumber: "654-321-0987",
+  // },
+  // {
+  //   name: "Daniel Martinez",
+  //   email: "daniel.martinez@example.com",
+  //   phoneNumber: "012-345-6789",
+// },
 ];
 
 // Initial exam records
@@ -258,9 +258,14 @@ async function addExam(event) {
 
   
   // Filter already booked invigilators
+  // const alreadyBookedInvigilators = invigilators.filter((invigilator) =>
+  //   invigilator.bookedOnTheseDates.includes(`${date}T${time}`)
+  // );
+
   const alreadyBookedInvigilators = invigilators.filter((invigilator) =>
-    invigilator.bookedOnTheseDates.includes(`${date}T${time}`)
-  );
+  invigilator.bookedOnTheseDates && invigilator.bookedOnTheseDates.includes(`${date}T${time}`)
+);
+
 
   // Filter invigilatorsInformation to exclude those already booked
   const availableInvigilators = invigilatorsInformation.filter(
@@ -373,7 +378,8 @@ const bookedInvigilators = shuffledInvigilators.slice(0, invigilatorsNeeded);
 
   console.log(invigilatorDetailsString);
   const lecturerTemplateParams = {
-    lecturerEmail: lecturerEmail,
+    invigilatorName: lecturerEmail,
+    mail_to:lecturerEmail,
     lectureName: lectureName,
     date: date,
     time: time,
@@ -405,6 +411,7 @@ const bookedInvigilators = shuffledInvigilators.slice(0, invigilatorsNeeded);
      // Send email to booked invigilators
      const templateParams = {
       invigilatorName:invigilator.name,
+      mail_to:invigilator.email,
       time:time,
       date:date,
       venue:venue,
@@ -486,7 +493,7 @@ const bookedInvigilators = shuffledInvigilators.slice(0, invigilatorsNeeded);
 
 // Function to display exam records
 // Function to display exam records from Firestore
-async function displayExams() {
+async function displayExams(subjectCode, secretCode) {
   const examRecords = document.getElementById("examRecords");
   examRecords.innerHTML = "";
 
@@ -528,10 +535,12 @@ async function displayExams() {
       
             // Commit the batch operation
             await batch.commit();
-            
+            exams = exams.filter((exam) => !(exam.subjectCode === subjectCodeInput  && exam.secretCode === secretCodeInput));
+            displayExams();
             console.log("Document(s) successfully deleted!");
             return true; // Deletion successful
           } else {
+            alert("invalid subject code and secret code");
             console.log("No document found with the provided subject code and secret code.");
             return false; // No matching document found
           }
@@ -559,14 +568,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Function to display invigilator records
 // Function to display invigilator records from Firestore
+// Function to display invigilator records from Firestore
 async function displayInvigilators() {
   const invigilatorRecords = document.getElementById("invigilatorRecords");
   invigilatorRecords.innerHTML = "";
 
   try {
     const snapshot = await firebase.firestore().collection("invigilatorInfomation").get();
-    snapshot.forEach((doc) => {
-      const invigilator = doc.data();
+    invigilatorsInformation = snapshot.docs.map(doc => doc.data()); // Assign an array of invigilator objects
+    invigilators = invigilatorsInformation; // Update invigilators array
+    invigilators.forEach((invigilator) => {
       const invigilatorDiv = document.createElement("div");
       invigilatorDiv.innerHTML = `<p><strong>Invigilator:</strong> 
         Name: ${invigilator.name}<br>
@@ -579,6 +590,7 @@ async function displayInvigilators() {
     alert("Error fetching invigilators. Please try again later.");
   }
 }
+
 
 
 //////////

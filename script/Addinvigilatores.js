@@ -7,7 +7,8 @@ async function addInvigilator(name, email, phoneNumber) {
   invigilatorsCollection.add({
     name: name,
     email: email,
-    phoneNumber: phoneNumber
+    phoneNumber: phoneNumber,
+    bookedOnTheseDates:[]
   })
   .then(async (docRef) => {
     console.log("Invigilator added with ID: ", docRef.id);

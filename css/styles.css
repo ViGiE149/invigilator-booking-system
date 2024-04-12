@@ -3,13 +3,15 @@ body {
   background-color: #f4f4f4;
   margin: 0;
   padding: 0;
+  background-image: url('/assets/login.jpg'); /* Add your image URL here */
+ 
 }
 
 .container {
   max-width: 800px;
   margin: 20px auto;
   padding: 20px;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -18,6 +20,7 @@ h1 {
   text-align: center;
   color: #333;
 }
+
 
 form {
   margin-bottom: 20px;
@@ -131,4 +134,19 @@ word-wrap: break-word;
 .exam-card:hover {
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.8);
   transform: smoth;
+}
+
+#id {
+  width: 100%; /* Make the button full width */
+  background-color: #4c87af; /* Green background color */
+  color: white; /* White text color */
+  padding: 10px 0; /* Padding top and bottom */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+#id {
+  background-color: #45a049; /* Darker green color on hover */
 }
