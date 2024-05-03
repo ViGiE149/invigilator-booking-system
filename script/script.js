@@ -8,7 +8,7 @@ let invigilators = [];
 
 
 //invigilators that can be booked
-letinvigilatorsInformation = [
+let invigilatorsInformation = [
    //{
   //   name: "John Doe",
   //   email: "john.doe@example.com",
@@ -47,173 +47,173 @@ letinvigilatorsInformation = [
 ];
 
 // Initial exam records
-const initialExams = [
-  {
-    date: "2024-04-10",
-    time: "09:00",
-    endTime: "10:00",
-    lectureName: "Mathematics",
-    subjectCode: "MATH101",
-    lecturerEmail: "math_teacher@example.com",
-    invigilatorsNeeded: 2,
-    venue: "Room 101",
-    secretCode: "abc123",
-  },
-  {
-    date: "2024-04-12",
-    time: "14:00",
-    endTime: "15:00",
-    lectureName: "Physics",
-    subjectCode: "PHY202",
-    lecturerEmail: "physics_teacher@example.com",
-    invigilatorsNeeded: 3,
-    venue: "Room 201",
-    secretCode: "def456",
-  },
-  {
-    date: "2024-04-15",
-    time: "10:30",
-    endTime: "11:00",
-    lectureName: "Chemistry",
-    subjectCode: "CHEM303",
-    lecturerEmail: "chemistry_teacher@example.com",
-    invigilatorsNeeded: 2,
-    venue: "Room 301",
-    secretCode: "ghi789",
-  },
-  {
-    date: "2024-04-18",
-    time: "09:30",
-    endTime: "10:30",
-    lectureName: "Biology",
-    subjectCode: "BIO404",
-    lecturerEmail: "biology_teacher@example.com",
-    invigilatorsNeeded: 2,
-    venue: "Room 401",
-    secretCode: "jkl012",
-  },
-  {
-    date: "2024-04-20",
-    time: "11:00",
-    endTime: "13:00",
-    lectureName: "English",
-    subjectCode: "ENG505",
-    lecturerEmail: "english_teacher@example.com",
-    invigilatorsNeeded: 1,
-    venue: "Room 501",
-    secretCode: "mno345",
-  },
-  {
-    date: "2024-04-22",
-    time: "13:00",
-    endTime: "14:00",
-    lectureName: "History",
-    subjectCode: "HIS606",
-    lecturerEmail: "history_teacher@example.com",
-    invigilatorsNeeded: 2,
-    venue: "Room 601",
-    secretCode: "pqr678",
-  },
-  {
-    date: "2024-04-25",
-    time: "10:00",
-    endTime: "11:30",
-    lectureName: "Geography",
-    subjectCode: "GEO707",
-    lecturerEmail: "geography_teacher@example.com",
-    invigilatorsNeeded: 2,
-    venue: "Room 701",
-    secretCode: "stu901",
-  },
+let initialExams = [
+  // {
+  //   date: "2024-04-10",
+  //   time: "09:00",
+  //   endTime: "10:00",
+  //   lectureName: "Mathematics",
+  //   subjectCode: "MATH101",
+  //   lecturerEmail: "math_teacher@example.com",
+  //   invigilatorsNeeded: 2,
+  //   venue: "Room 101",
+  //   secretCode: "abc123",
+  // },
+  // {
+  //   date: "2024-04-12",
+  //   time: "14:00",
+  //   endTime: "15:00",
+  //   lectureName: "Physics",
+  //   subjectCode: "PHY202",
+  //   lecturerEmail: "physics_teacher@example.com",
+  //   invigilatorsNeeded: 3,
+  //   venue: "Room 201",
+  //   secretCode: "def456",
+  // },
+  // {
+  //   date: "2024-04-15",
+  //   time: "10:30",
+  //   endTime: "11:00",
+  //   lectureName: "Chemistry",
+  //   subjectCode: "CHEM303",
+  //   lecturerEmail: "chemistry_teacher@example.com",
+  //   invigilatorsNeeded: 2,
+  //   venue: "Room 301",
+  //   secretCode: "ghi789",
+  // },
+  // {
+  //   date: "2024-04-18",
+  //   time: "09:30",
+  //   endTime: "10:30",
+  //   lectureName: "Biology",
+  //   subjectCode: "BIO404",
+  //   lecturerEmail: "biology_teacher@example.com",
+  //   invigilatorsNeeded: 2,
+  //   venue: "Room 401",
+  //   secretCode: "jkl012",
+  // },
+  // {
+  //   date: "2024-04-20",
+  //   time: "11:00",
+  //   endTime: "13:00",
+  //   lectureName: "English",
+  //   subjectCode: "ENG505",
+  //   lecturerEmail: "english_teacher@example.com",
+  //   invigilatorsNeeded: 1,
+  //   venue: "Room 501",
+  //   secretCode: "mno345",
+  // },
+  // {
+  //   date: "2024-04-22",
+  //   time: "13:00",
+  //   endTime: "14:00",
+  //   lectureName: "History",
+  //   subjectCode: "HIS606",
+  //   lecturerEmail: "history_teacher@example.com",
+  //   invigilatorsNeeded: 2,
+  //   venue: "Room 601",
+  //   secretCode: "pqr678",
+  // },
+  // {
+  //   date: "2024-04-25",
+  //   time: "10:00",
+  //   endTime: "11:30",
+  //   lectureName: "Geography",
+  //   subjectCode: "GEO707",
+  //   lecturerEmail: "geography_teacher@example.com",
+  //   invigilatorsNeeded: 2,
+  //   venue: "Room 701",
+  //   secretCode: "stu901",
+  // },
 ];
 
 // Initial invigilator records
-const trackBookedInvigilators = [
-  {
-    name: "John Doe",
-    email: "john.doe@example.com",
-    phoneNumber: "123-456-7890",
-    bookedOnTheseDates: [
-      "2024-04-10T09:00",
-      "2024-04-12T14:00",
-      "2024-04-15T10:30",
-      "2024-04-18T09:30",
-    ],
-  },
-  {
-    name: "Jane Smith",
-    email: "jane.smith@example.com",
-    phoneNumber: "987-654-3210",
-    bookedOnTheseDates: [
-      "2024-04-10T09:00",
-      "2024-04-15T10:30",
-      "2024-04-20T11:00",
-      "2024-04-22T13:00",
-    ],
-  },
-  {
-    name: "Michael Johnson",
-    email: "michael.johnson@example.com",
-    phoneNumber: "456-789-0123",
-    bookedOnTheseDates: [
-      "2024-04-12T14:00",
-      "2024-04-15T10:30",
-      "2024-04-18T09:30",
-      "2024-04-20T11:00",
-      "2024-04-25T10:00",
-    ],
-  },
-  {
-    name: "Emily Brown",
-    email: "emily.brown@example.com",
-    phoneNumber: "789-012-3456",
-    bookedOnTheseDates: [
-      "2024-04-10T09:00",
-      "2024-04-12T14:00",
-      "2024-04-15T10:30",
-      "2024-04-18T09:30",
-      "2024-04-22T13:00",
-      "2024-04-25T10:00",
-    ],
-  },
-  {
-    name: "David Wilson",
-    email: "david.wilson@example.com",
-    phoneNumber: "321-654-9870",
-    bookedOnTheseDates: [
-      "2024-04-15T10:30",
-      "2024-04-18T09:30",
-      "2024-04-20T11:00",
-      "2024-04-22T13:00",
-      "2024-04-25T10:00",
-    ],
-  },
-  {
-    name: "Sarah Garcia",
-    email: "sarah.garcia@example.com",
-    phoneNumber: "654-321-0987",
-    bookedOnTheseDates: [
-      "2024-04-18T09:30",
-      "2024-04-20T11:00",
-      "2024-04-22T13:00",
-      "2024-04-25T10:00",
-    ],
-  },
-  {
-    name: "Daniel Martinez",
-    email: "daniel.martinez@example.com",
-    phoneNumber: "012-345-6789",
-    bookedOnTheseDates: [
-      "2024-04-20T11:00",
-      "2024-04-22T13:00",
-      "2024-04-25T10:00",
-    ],
-  },
+let trackBookedInvigilators = [
+ // {
+  //   name: "John Doe",
+  //   email: "john.doe@example.com",
+  //   phoneNumber: "123-456-7890",
+  //   bookedOnTheseDates: [
+  //     "2024-04-10T09:00",
+  //     "2024-04-12T14:00",
+  //     "2024-04-15T10:30",
+  //     "2024-04-18T09:30",
+  //   ],
+  // },
+  // {
+  //   name: "Jane Smith",
+  //   email: "jane.smith@example.com",
+  //   phoneNumber: "987-654-3210",
+  //   bookedOnTheseDates: [
+  //     "2024-04-10T09:00",
+  //     "2024-04-15T10:30",
+  //     "2024-04-20T11:00",
+  //     "2024-04-22T13:00",
+  //   ],
+  // },
+  // {
+  //   name: "Michael Johnson",
+  //   email: "michael.johnson@example.com",
+  //   phoneNumber: "456-789-0123",
+  //   bookedOnTheseDates: [
+  //     "2024-04-12T14:00",
+  //     "2024-04-15T10:30",
+  //     "2024-04-18T09:30",
+  //     "2024-04-20T11:00",
+  //     "2024-04-25T10:00",
+  //   ],
+  // },
+  // {
+  //   name: "Emily Brown",
+  //   email: "emily.brown@example.com",
+  //   phoneNumber: "789-012-3456",
+  //   bookedOnTheseDates: [
+  //     "2024-04-10T09:00",
+  //     "2024-04-12T14:00",
+  //     "2024-04-15T10:30",
+  //     "2024-04-18T09:30",
+  //     "2024-04-22T13:00",
+  //     "2024-04-25T10:00",
+  //   ],
+  // },
+  // {
+  //   name: "David Wilson",
+  //   email: "david.wilson@example.com",
+  //   phoneNumber: "321-654-9870",
+  //   bookedOnTheseDates: [
+  //     "2024-04-15T10:30",
+  //     "2024-04-18T09:30",
+  //     "2024-04-20T11:00",
+  //     "2024-04-22T13:00",
+  //     "2024-04-25T10:00",
+  //   ],
+  // },
+  // {
+  //   name: "Sarah Garcia",
+  //   email: "sarah.garcia@example.com",
+  //   phoneNumber: "654-321-0987",
+  //   bookedOnTheseDates: [
+  //     "2024-04-18T09:30",
+  //     "2024-04-20T11:00",
+  //     "2024-04-22T13:00",
+  //     "2024-04-25T10:00",
+  //   ],
+  // },
+  // {
+  //   name: "Daniel Martinez",
+  //   email: "daniel.martinez@example.com",
+  //   phoneNumber: "012-345-6789",
+  //   bookedOnTheseDates: [
+  //     "2024-04-20T11:00",
+  //     "2024-04-22T13:00",
+  //     "2024-04-25T10:00",
+  //   ],
+  // },
 ];
 
 // Merge initial records with existing records
 exams = initialExams;
-invigilators = trackBookedInvigilators;
+//invigilators = trackBookedInvigilators;
 
 // Function to add a new exam
 async function addExam(event) {
@@ -262,7 +262,7 @@ async function addExam(event) {
   //   invigilator.bookedOnTheseDates.includes(`${date}T${time}`)
   // );
 
-  const alreadyBookedInvigilators = invigilators.filter((invigilator) =>
+  const alreadyBookedInvigilators = trackBookedInvigilators.filter((invigilator) =>
   invigilator.bookedOnTheseDates && invigilator.bookedOnTheseDates.includes(`${date}T${time}`)
 );
 
@@ -308,13 +308,13 @@ async function addExam(event) {
 
 const shuffledInvigilators = availableInvigilators.sort(() => Math.random() - 0.5);
 
-// Select invigilators needed randomly
+//Select invigilators needed randomly
 const bookedInvigilators = shuffledInvigilators.slice(0, invigilatorsNeeded);
     ///
     const bookedInvigilatorNames = bookedInvigilators.map(
       (invigilator) => invigilator.name
     );
-    // Update exam record with booked invigilators
+    //Update exam record with booked invigilators
     exams.push({
       date,
       time,
@@ -352,7 +352,7 @@ const bookedInvigilators = shuffledInvigilators.slice(0, invigilatorsNeeded);
 
     bookedInvigilators.forEach(async (invigilator) => {
       try {
-        const invigilatorRef = firebase.firestore().collection("itrackBookedInvigilators").doc(invigilator.email);
+        const invigilatorRef = firebase.firestore().collection("trackBookedInvigilators").doc(invigilator.email);
         await invigilatorRef.update({
           bookedOnTheseDates: firebase.firestore.FieldValue.arrayUnion(`${date}T${time}`)
         });
@@ -446,25 +446,28 @@ const bookedInvigilators = shuffledInvigilators.slice(0, invigilatorsNeeded);
 
 
     // Display success message
-    alert(`${invigilatorsNeeded} invigilator(s) booked successfully for ${lectureName} on ${date} at ${time}.`);
+   // alert(`${invigilatorsNeeded} invigilator(s) booked successfully for ${lectureName} on ${date} at ${time}.`);
 
     // Display booked invigilators' information
-    alert("Invigilators Booked:\n" +
-      bookedInvigilators.map((invigilator) =>
-        `Name: ${invigilator.name}\nEmail: ${invigilator.email}\nPhone: ${invigilator.phoneNumber}`
-      ).join("\n\n"));
+    // alert(
+    //   `${invigilatorsNeeded} invigilator(s) booked successfully for ${lectureName} on ${date} at ${time}.\n`+
+    //   "Invigilators Booked:\n" +
+    //   bookedInvigilators.map((invigilator) =>
+    //     `Name: ${invigilator.name}\nEmail: ${invigilator.email}\nPhone: ${invigilator.phoneNumber}`
+    //   ).join("\n\n"));
   } catch (error) {
     console.error("Error adding document: ", error);
     alert("Error occurred while booking invigilators. Please try again later.");
   }
 
     // Display success message
-    alert(
-      `${invigilatorsNeeded} invigilator(s) booked successfully for ${lectureName} on ${date} at ${time}.`
-    );
+    // alert(
+    //   `${invigilatorsNeeded} invigilator(s) booked successfully for ${lectureName} on ${date} at ${time}.`
+    // );
 
     // Display booked invigilators' information
     alert(
+      `${invigilatorsNeeded} invigilator(s) booked successfully for ${lectureName} on ${date} at ${time}.\n`+
       "Invigilators Booked:\n" +
         bookedInvigilators
           .map(
@@ -513,6 +516,7 @@ async function displayExams(subjectCode, secretCode) {
       // Adding delete button
       const deleteButton = document.createElement("button");
       deleteButton.innerText = "Delete";
+      deleteButton.classList.add("btn", "btn-danger");
       deleteButton.addEventListener("click", async () => {
         const secretCodeInput = prompt("Enter Secret Code:");
         const subjectCodeInput = prompt("Enter Subject Code:");
@@ -568,23 +572,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Function to display invigilator records
 // Function to display invigilator records from Firestore
-// Function to display invigilator records from Firestore
 async function displayInvigilators() {
-  const invigilatorRecords = document.getElementById("invigilatorRecords");
-  invigilatorRecords.innerHTML = "";
+  //const invigilatorRecords = document.getElementById("invigilatorRecords");
+  //invigilatorRecords.innerHTML = "";
 
   try {
-    const snapshot = await firebase.firestore().collection("invigilatorInfomation").get();
+  let snapshot = await firebase.firestore().collection("invigilatorInfomation").get();
+    let trackBookedInvigilatorsSnapshot = await firebase.firestore().collection("trackBookedInvigilators").get();
     invigilatorsInformation = snapshot.docs.map(doc => doc.data()); // Assign an array of invigilator objects
-    invigilators = invigilatorsInformation; // Update invigilators array
-    invigilators.forEach((invigilator) => {
-      const invigilatorDiv = document.createElement("div");
-      invigilatorDiv.innerHTML = `<p><strong>Invigilator:</strong> 
-        Name: ${invigilator.name}<br>
-        Email: ${invigilator.email}<br>
-        Phone: ${invigilator.phoneNumber}</p>`;
-      invigilatorRecords.appendChild(invigilatorDiv);
-    });
+    invigilators = invigilatorsInformation;
+    trackBookedInvigilators = trackBookedInvigilatorsSnapshot.docs.map(doc => doc.data());
+    console.log(trackBookedInvigilators );
+     // Update invigilators array
+    // invigilators.forEach((invigilator) => {
+    //   const invigilatorDiv = document.createElement("div");
+    //   invigilatorDiv.innerHTML = `<p><strong>Invigilator:</strong> 
+    //     Name: ${invigilator.name}<br>
+    //     Email: ${invigilator.email}<br>
+    //     Phone: ${invigilator.phoneNumber}</p>`;
+    //   invigilatorRecords.appendChild(invigilatorDiv);
+    // });
   } catch (error) {
     console.error("Error fetching invigilators: ", error);
     alert("Error fetching invigilators. Please try again later.");
