@@ -493,7 +493,27 @@ const bookedInvigilators = shuffledInvigilators.slice(0, invigilatorsNeeded);
   event.target.reset();
 }
 
+function checkPassword() {
+  var password = prompt("Enter password:");
+  // Access Firestore to check password
+  
+  var docRef = firebase.firestore().collection("DB_PASSWORD").doc("PASSWORD");
 
+  docRef.get().then((doc) => {
+    if (doc.exists) {
+      if (password === doc.data().PASS) {
+        // Redirect to add_invigilator.html if password is correct
+        window.location.href = "add_invigilator.html";
+      } else {
+        alert("Incorrect password. Please try again.");
+      }
+    } else {
+      alert("Password not found.");
+    }
+  }).catch((error) => {
+    console.error("Error getting password:", error);
+  });
+}
 // Function to display exam records
 // Function to display exam records from Firestore
 async function displayExams(subjectCode, secretCode) {
