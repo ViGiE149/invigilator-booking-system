@@ -514,6 +514,35 @@ function checkPassword() {
     console.error("Error getting password:", error);
   });
 }
+
+// Function to check available invigilators based on selected date and time
+function checkAvailableInvigilators() {
+  const date = document.getElementById("date").value;
+  const time = document.getElementById("time").value;
+
+  // Filter already booked invigilators
+  const alreadyBookedInvigilators = trackBookedInvigilators.filter((invigilator) =>
+    invigilator.bookedOnTheseDates && invigilator.bookedOnTheseDates.includes(`${date}T${time}`)
+  );
+
+  // Filter invigilatorsInformation to exclude those already booked
+  const availableInvigilators = invigilatorsInformation.filter(
+    (invigilator) =>
+      !alreadyBookedInvigilators.some(
+        (booked) => booked.name === invigilator.name
+      )
+  );
+
+  // Display the number of available invigilators
+  const availableInvigilatorsCount = availableInvigilators.length;
+  const availableInvigilatorsCountElement = document.getElementById("availableInvigilatorsCount");
+  availableInvigilatorsCountElement.textContent = `Number of available invigilators: ${availableInvigilatorsCount}`;
+}
+
+// Event listeners for date and time inputs
+document.getElementById("date").addEventListener("change", checkAvailableInvigilators);
+document.getElementById("time").addEventListener("change", checkAvailableInvigilators);
+
 // Function to display exam records
 // Function to display exam records from Firestore
 async function displayExams(subjectCode, secretCode) {
