@@ -12,7 +12,22 @@
   </head>
   <body>
     <div class="container">
-      <p><span style="color: #3598db;">Inn</span><span style="color: #ba372a;">ova</span><span style="color: #000000;">tion</span> <span style="color: #2dc26b;">Lab</span></p>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid d-flex justify-content-between">
+          <!-- Brand -->
+          <p class="navbar-brand mb-0"><span style="color: #3598db;">Inn</span><span style="color: #ba372a;">ova</span><span style="color: #000000;">tion</span> <span style="color: #2dc26b;">Lab</span></p>
+          
+          <!-- Navbar items -->
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link"   onclick="checkPassword()"><i class="bi bi-plus-lg"></i> Add Invigilator</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      
       <h1>Exam Invigilator Booking System</h1>
       <div>
         <h2>Add New Exam</h2>
@@ -46,10 +61,10 @@
         Existing invigilator records will be displayed here
       </div>
       <hr />
-      <section id="searchSection">
+      <!-- <section id="searchSection">
         <input type="text" id="searchInput" placeholder="Search by Subject Code">
         <button id="searchButton">Search</button>
-      </section>
+      </section> -->
       <div id="examRecords">
         <!-- Existing exam records will be displayed here -->
       </div>
