@@ -1,0 +1,61 @@
+// Function to retrieve initial exams from Firestore
+function getInitialExams() {
+  const initialExamsRef = db.collection("initialExams");
+
+  initialExamsRef.get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      console.log(`${doc.id} => ${doc.data()}`);
+      // Access individual fields like doc.data().date, doc.data().time, etc.
+    });
+  }).catch((error) => {
+    console.error("Error getting initial exams: ", error);
+  });
+}//
+//
+
+// Function to add initial invigilators to Firestore
+function addInitialInvigilators() {
+  const initialInvigilators = [
+    { name: "John Doe", bookedOnTheseDates: ["2024-04-10T09:00", "2024-04-12T14:00", "2024-04-15T10:30", "2024-04-18T09:30"] },
+    { name: "Jane Smith", bookedOnTheseDates: ["2024-04-10T09:00", "2024-04-15T10:30", "2024-04-20T11:00", "2024-04-22T13:00"] },
+    // Add more initial invigilator records as needed
+  ];
+
+  initialInvigilators.forEach(invigilator => {
+    db.collection("initialInvigilators").add({
+      name: invigilator.name,
+      bookedOnTheseDates: invigilator.bookedOnTheseDates
+    })
+    .then(function(docRef) {
+      console.log("Initial invigilator added with ID: ", docRef.id);
+    })
+    .catch(function(error) {
+      console.error("Error adding initial invigilator: ", error);
+    });
+  });
+}
+///
+// Initialize Firebase
+firebase.initializeApp({
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID"
+});
+
+// Get a reference to the Firestore database
+const db = firebase.firestore();
+
+// Function to add invigilator to Firestore
+function addInvigilator(name, email, phoneNumber) {
+  db.collection("invigilators").add({
+    name: name,
+    email: email,
+    phoneNumber: phoneNumber
+  })
+  .then(function(docRef) {
+    console.log("Invigilator added with ID: ", docRef.id);
+  })
+  .catch(function(error) {
+    console.error("Error adding invigilator: ", error);
+  });
+}

@@ -24,8 +24,6 @@ async function addInvigilator(name, email, phoneNumber) {
       phoneNumber: phoneNumber,
       bookedOnTheseDates:[]
     });
-// After successfully adding invigilator, display success message for 1 second (1000 milliseconds)
-displaySuccessMessage("Invigilator added successfully!", 1500);
 
 
 
@@ -37,19 +35,6 @@ displaySuccessMessage("Invigilator added successfully!", 1500);
     // Optionally, you can display an error message or perform other actions here
   });
 }
-
-// Function to display success message for a specified duration
-function displaySuccessMessage(message, duration) {
-  const successMessage = document.getElementById("successMessage");
-  successMessage.textContent = message; // Set the text content of the message
-  successMessage.style.display = "block"; // Display the message
-  
-  // Set a timer to hide the message after the specified duration
-  setTimeout(function() {
-    successMessage.style.display = "none"; // Hide the message by changing its CSS display property
-  }, duration);
-}
-
 
 // Event listener for submitting the invigilator form
 document.getElementById('invigilatorForm').addEventListener('submit', function(event) {
