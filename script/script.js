@@ -211,9 +211,28 @@ let trackBookedInvigilators = [
   // },
 ];
 
+
+
+
 // Merge initial records with existing records
 exams = initialExams;
+let globalDocId = null;
 //invigilators = trackBookedInvigilators;
+
+function editExam(exam) {
+  globalDocId = exam.id; 
+  document.getElementById('date').value = exam.date;
+  document.getElementById('time').value = exam.time;
+  document.getElementById('endTime').value = exam.endTime;
+  document.getElementById('lectureName').value = exam.lectureName;
+  document.getElementById('subjectCode').value = exam.subjectCode;
+  document.getElementById('lecturerEmail').value = exam.lecturerEmail;
+  document.getElementById('invigilatorsNeeded').value = exam.invigilatorsNeeded;
+  document.getElementById('venue').value = exam.venue;
+  document.getElementById('secretCode').value = exam.secretCode;
+  document.getElementById('btn').innerText = 'Edit Exam';
+}
+
 
 // Function to add a new exam
 async function addExam(event) {
@@ -330,168 +349,140 @@ const bookedInvigilators = shuffledInvigilators.slice(0, invigilatorsNeeded);
 
     // Your existing code for collecting exam data...
 
-  // Add the new exam data to Firestore
-  try {
-    const docRef = await  firebase.firestore().collection("exams").add({
-      date: date,
-      time: time,
-      endTime: endTime,
-      lectureName: lectureName,
-      subjectCode: subjectCode,
-      lecturerEmail: lecturerEmail,
-      invigilatorsNeeded: invigilatorsNeeded,
-      venue: venue,
-      secretCode: secretCode,
-      invigilators: bookedInvigilators.map(invigilator => ({
-        name: invigilator.name,
-        email: invigilator.email,
-        phoneNumber: invigilator.phoneNumber
-      })),
-    });
-    console.log("Document written with ID: ", docRef.id);
-
-    bookedInvigilators.forEach(async (invigilator) => {
-      try {
-        const invigilatorRef = firebase.firestore().collection("trackBookedInvigilators").doc(invigilator.email);
-        await invigilatorRef.update({
-          bookedOnTheseDates: firebase.firestore.FieldValue.arrayUnion(`${date}T${time}`)
-        });
-        console.log("Invigilator data updated for ", invigilator.name);
-      } catch (error) {
-        console.error("Error updating invigilator data: ", error);
-      }
-    });
-
-
-  //sent email to lacture
-  console.log("Booked Invigilators:", bookedInvigilators);
-  const bookedInvigilatorDetails = bookedInvigilators.map(invigilator => ({
-    name: invigilator.name,
-    email: invigilator.email,
-    phoneNumber: invigilator.phoneNumber
-  }));
-  
- 
-  let invigilatorDetailsString = bookedInvigilatorDetails.map(invigilator =>
-    `Name: ${invigilator.name}, Email: ${invigilator.email}, Phone: ${invigilator.phoneNumber}`
-  ).join("\n");
-
-  console.log(invigilatorDetailsString);
-  const lecturerTemplateParams = {
-    invigilatorName: lecturerEmail,
-    mail_to:lecturerEmail,
-    lectureName: lectureName,
-    date: date,
-    time: time,
-    venue: venue,
-    invigilators : invigilatorDetailsString,
-    subjectCode: subjectCode,
-    subject: "Invigilator Booking Details",
-    message: "Invigilators have been booked for your exam.",
-  };
-  console.log("Lecturer Template Params:", lecturerTemplateParams);
-  emailjs.send(
-    "service_ckbbt49", // Replace with your service ID
-    "template_idsofyp", // Replace with your template ID
-    lecturerTemplateParams,
-    "W1qXgeQEdf-hF-IAg" // Replace with your user ID
-  )
-  .then(
-    (result) => {
-      console.log(result.text, "1");
-    },
-    (error) => {
-      console.log(error.text);
-    }
-  );
-  
-
-  //sent email to invilators
-    bookedInvigilators.forEach(async (invigilator) => {
-     // Send email to booked invigilators
-     const templateParams = {
-      invigilatorName:invigilator.name,
-      mail_to:invigilator.email,
-      time:time,
-      date:date,
-      venue:venue,
-      lectureName:lectureName,
-      lecturerEmail:lecturerEmail,
-      subjectCode:subjectCode,
-      invigilators : invigilatorDetailsString,
-      subject: "invigilaor booking",
-      message: "you have been booked to invigilate",
-    };
+        // Add the new exam data to Firestore
+        try {
+          if (globalDocId) {
+            // Update existing exam
+            await firebase.firestore().collection("exams").doc(globalDocId).update({
+              date, time, endTime, lectureName, subjectCode, lecturerEmail, invigilatorsNeeded, venue, secretCode,
+              invigilators: bookedInvigilators.map(invigilator => ({
+                name: invigilator.name,
+                email: invigilator.email,
+                phoneNumber: invigilator.phoneNumber
+              })),
+            });
+            console.log("Document successfully updated!");
+          } else {
+            // Add new exam
+            const docRef = await firebase.firestore().collection("exams").add({
+              date, time, endTime, lectureName, subjectCode, lecturerEmail, invigilatorsNeeded, venue, secretCode,
+              invigilators: bookedInvigilators.map(invigilator => ({
+                name: invigilator.name,
+                email: invigilator.email,
+                phoneNumber: invigilator.phoneNumber
+              })),
+            });
+            console.log("Document written with ID: ", docRef.id);
     
-    // Send email using EmailJS
-    emailjs.send(
-      "service_ckbbt49", // Replace with your service ID
-      "template_idsofyp", // Replace with your template ID
-      templateParams,
-      "W1qXgeQEdf-hF-IAg" // Replace with your user ID
-    )
-    .then(
-      (result) => {
-   
-        console.log(result.text,"2");
-  
-      },
-      (error) => {
-  
-        console.log(error.text);
+            bookedInvigilators.forEach(async (invigilator) => {
+              try {
+                const invigilatorRef = firebase.firestore().collection("trackBookedInvigilators").doc(invigilator.email);
+                await invigilatorRef.update({
+                  bookedOnTheseDates: firebase.firestore.FieldValue.arrayUnion(`${date}T${time}`)
+                });
+                console.log("Invigilator data updated for ", invigilator.name);
+              } catch (error) {
+                console.error("Error updating invigilator data: ", error);
+              }
+            });
+    
+            const bookedInvigilatorDetails = bookedInvigilators.map(invigilator => ({
+              name: invigilator.name,
+              email: invigilator.email,
+              phoneNumber: invigilator.phoneNumber
+            }));
+    
+            let invigilatorDetailsString = bookedInvigilatorDetails.map(invigilator =>
+              `Name: ${invigilator.name}, Email: ${invigilator.email}, Phone: ${invigilator.phoneNumber}`
+            ).join("\n");
+    
+            console.log(invigilatorDetailsString);
+            const lecturerTemplateParams = {
+              invigilatorName: lecturerEmail,
+              mail_to: lecturerEmail,
+              lectureName: lectureName,
+              date: date,
+              time: time,
+              venue: venue,
+              invigilators: invigilatorDetailsString,
+              subjectCode: subjectCode,
+              subject: "Invigilator Booking Details",
+              message: "Invigilators have been booked for your exam.",
+            };
+            console.log("Lecturer Template Params:", lecturerTemplateParams);
+            emailjs.send(
+              "service_ckbbt49", // Replace with your service ID
+              "template_idsofyp", // Replace with your template ID
+              lecturerTemplateParams,
+              "W1qXgeQEdf-hF-IAg" // Replace with your user ID
+            )
+              .then((result) => {
+                console.log(result.text, "1");
+              }, (error) => {
+                console.log(error.text);
+              });
+    
+            // Send email to booked invigilators
+            bookedInvigilators.forEach(async (invigilator) => {
+              const templateParams = {
+                invigilatorName: invigilator.name,
+                mail_to: invigilator.email,
+                time: time,
+                date: date,
+                venue: venue,
+                lectureName: lectureName,
+                lecturerEmail: lecturerEmail,
+                subjectCode: subjectCode,
+                invigilators: invigilatorDetailsString,
+                subject: "Invigilator Booking",
+                message: "You have been booked to invigilate.",
+              };
+    
+              emailjs.send(
+                "service_ckbbt49", // Replace with your service ID
+                "template_idsofyp", // Replace with your template ID
+                templateParams,
+                "W1qXgeQEdf-hF-IAg" // Replace with your user ID
+              )
+                .then((result) => {
+                  console.log(result.text, "2");
+                }, (error) => {
+                  console.log(error.text);
+                });
+            });
+          }
+          
+        } catch (error) {
+          console.error("Error adding document: ", error);
+          alert("Error occurred while booking invigilators. Please try again later.");
+        }
+    
+        alert(
+          `${invigilatorsNeeded} invigilator(s) booked successfully for ${lectureName} on ${date} at ${time}.\n` +
+          "Invigilators Booked:\n" +
+          bookedInvigilators.map((invigilator) =>
+            `Name: ${invigilator.name}\nEmail: ${invigilator.email}\nPhone: ${invigilator.phoneNumber}`
+          ).join("\n\n")
+        );
+      } else {
+        alert("Insufficient invigilators available for the specified date and time.");
+        console.log("Insufficient invigilators available for the specified date and time.");
       }
-    );
-
-  });
-
-
-    // Display success message
-   // alert(`${invigilatorsNeeded} invigilator(s) booked successfully for ${lectureName} on ${date} at ${time}.`);
-
-    // Display booked invigilators' information
-    // alert(
-    //   `${invigilatorsNeeded} invigilator(s) booked successfully for ${lectureName} on ${date} at ${time}.\n`+
-    //   "Invigilators Booked:\n" +
-    //   bookedInvigilators.map((invigilator) =>
-    //     `Name: ${invigilator.name}\nEmail: ${invigilator.email}\nPhone: ${invigilator.phoneNumber}`
-    //   ).join("\n\n"));
-  } catch (error) {
-    console.error("Error adding document: ", error);
-    alert("Error occurred while booking invigilators. Please try again later.");
-  }
-
-    // Display success message
-    // alert(
-    //   `${invigilatorsNeeded} invigilator(s) booked successfully for ${lectureName} on ${date} at ${time}.`
-    // );
-
-    // Display booked invigilators' information
-    alert(
-      `${invigilatorsNeeded} invigilator(s) booked successfully for ${lectureName} on ${date} at ${time}.\n`+
-      "Invigilators Booked:\n" +
-        bookedInvigilators
-          .map(
-            (invigilator) =>
-              `Name: ${invigilator.name}\nEmail: ${invigilator.email}\nPhone: ${invigilator.phoneNumber}`
-          )
-          .join("\n\n")
-    );
-  } else {
-    // Handle insufficient invigilators
-    alert(
-      "Insufficient invigilators available for the specified date and time."
-    );
-    console.log(
-      "Insufficient invigilators available for the specified date and time."
-    );
-  }
-
   // Display the updated exam records
   displayExams();
 
   // Reset the form
   event.target.reset();
 }
+
+
+
+
+
+
+
+
+
 
 function checkPassword() {
   var password = prompt("Enter password:");
@@ -562,47 +553,78 @@ async function displayExams(subjectCode, secretCode) {
         examDiv.innerHTML += `<p><strong>No Invigilators Booked</strong></p>`;
       }
       
+
+     // Adding edit button
+      const editButton = document.createElement("button");
+      editButton.innerText = "Edit";
+      editButton.classList.add("btn", "btn-primary");
+      editButton.addEventListener("click", () => {
+        editExam({
+          id: doc.id,
+          date: exam.date,
+          time: exam.time,
+          endTime: exam.endTime,
+          lectureName: exam.lectureName,
+          subjectCode: exam.subjectCode,
+          lecturerEmail: exam.lecturerEmail,
+          invigilatorsNeeded: exam.invigilatorsNeeded,
+          venue: exam.venue,
+          secretCode: exam.secretCode
+        });
+        console.log("Document ID:", doc.id);
+      });
+
+
+
       // Adding delete button
       const deleteButton = document.createElement("button");
       deleteButton.innerText = "Delete";
       deleteButton.classList.add("btn", "btn-danger");
       deleteButton.addEventListener("click", async () => {
-        const secretCodeInput = prompt("Enter Secret Code:");
-        const subjectCodeInput = prompt("Enter Subject Code:");
-        
-        // Check if entered codes match with the exam record
-        try {
-          // Query Firestore to find the document with matching subjectCode and secretCode
-          const querySnapshot = await firebase.firestore().collection("exams")
-            .where("subjectCode", "==", subjectCodeInput)
-            .where("secretCode", "==", secretCodeInput)
-            .get();
+          const secretCodeInput = prompt("Enter Secret Code:");
+          
+          if (secretCodeInput) {
+              try {
+                  // Query Firestore to find the document with matching ID
+                  const docId = doc.id; // Assuming doc.id is correctly set here
       
-          // Check if any matching document is found
-          if (!querySnapshot.empty) {
-            // Delete the document(s)
-            const batch = firebase.firestore().batch();
-            querySnapshot.forEach((doc) => {
-              batch.delete(doc.ref);
-            });
+                  // Reference the document directly by its ID
+                  const docRef = firebase.firestore().collection("exams").doc(docId);
       
-            // Commit the batch operation
-            await batch.commit();
-            exams = exams.filter((exam) => !(exam.subjectCode === subjectCodeInput  && exam.secretCode === secretCodeInput));
-            displayExams();
-            console.log("Document(s) successfully deleted!");
-            return true; // Deletion successful
+                  // Get the document snapshot to compare the secret code
+                  const docSnapshot = await docRef.get();
+      
+                  if (docSnapshot.exists) {
+                      const examData = docSnapshot.data();
+      
+                      // Check if the secret code matches
+                      if (examData.secretCode === secretCodeInput) {
+                          // Delete the document
+                          await docRef.delete();
+                          console.log("Document successfully deleted!");
+                          
+                          // Optionally, update UI or perform other actions after deletion
+                          // For example, remove the deleted exam from the displayed list
+                          displayExams();
+                      } else {
+                          alert("Invalid secret code. Deletion canceled.");
+                          console.log("Invalid secret code. Deletion canceled.");
+                      }
+                  } else {
+                      alert("Document not found. Deletion canceled.");
+                      console.log("Document not found. Deletion canceled.");
+                  }
+              } catch (error) {
+                  console.error("Error deleting document: ", error);
+                  alert("Error deleting document. Please try again later.");
+              }
           } else {
-            alert("invalid subject code and secret code");
-            console.log("No document found with the provided subject code and secret code.");
-            return false; // No matching document found
+              alert("Secret code input canceled. Deletion canceled.");
+              console.log("Secret code input canceled. Deletion canceled.");
           }
-        } catch (error) {
-          console.error("Error deleting document: ", error);
-          throw new Error("Error deleting exam. Please try again later.");
-        }
       });
 
+      examDiv.appendChild(editButton);
       examDiv.appendChild(deleteButton);
       examRecords.appendChild(examDiv);
     });
